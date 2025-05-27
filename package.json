@@ -1,0 +1,27 @@
+{
+  "name": "pyramid-solidjs",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run cfg/dev.ts",
+    "build": "bun run cfg/prod.ts"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@dschz/bun-plugin-solid": "^1.0.3",
+    "@types/bun": "latest",
+    "babel-preset-solid": "^1.9.6",
+    "bun-plugin-tailwind": "^0.0.15",
+    "tailwindcss": "^4.1.7"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@xstate/store": "^3.6.2",
+    "immer": "^10.1.1",
+    "solid-js": "^1.9.6"
+  }
+}
