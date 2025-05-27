@@ -11,7 +11,7 @@ function App() {
         <For each={board}>{
             (row, i) => <div class="text-zero text-center">
                 <For each={row}>{(cell, j) =>
-                    <div class='bg-[silver] w-s m-m h-h inline-block cursor-pointer mb-mb hex font-bold font-[Georgia] text-f'>
+                    <div class='bg-[silver] w-size m-margin h-height inline-block cursor-pointer mb-bottom hex font-bold font-[Georgia] text-small'>
                         {cell}
                     </div>}</For>
             </div>

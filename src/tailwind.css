@@ -5,12 +5,13 @@
 @source './';
 
 @theme {
-  --spacing-s: 50px;
-  --spacing-m: 4px;
-  --spacing-h: calc(var(--spacing-s) * 1.1547);
-  --spacing-mb: calc(var(--spacing-m) - var(--spacing-s) * 0.2886);
-  --text-f: calc(var(--spacing-s)*.3);
-  --text-zero: 0px;
+  --spacing-size: 50px;
+  --spacing-margin: 4px;
+  --spacing-height: calc(var(--spacing-size) * 1.1547);
+  --spacing-bottom: calc(var(--spacing-margin) - var(--spacing-size) * 0.2886);
+  --text-small: calc(var(--spacing-size)*.3);
+  --text-big: calc(var(--spacing-size)*.8);
+  --text-zero: 0;
 }
 
 @utility hex {
