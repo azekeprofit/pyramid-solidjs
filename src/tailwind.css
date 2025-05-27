@@ -2,4 +2,17 @@
 @import "tailwindcss/theme.css" layer(theme);
 /* @import "tailwindcss/preflight.css" layer(base); */
 @import "tailwindcss/utilities.css" layer(utilities);
-@source './'
+@source './';
+
+@theme {
+  --spacing-s: 50px;
+  --spacing-m: 4px;
+  --spacing-h: calc(var(--spacing-s) * 1.1547);
+  --spacing-mb: calc(var(--spacing-m) - var(--spacing-s) * 0.2886);
+  --text-f: calc(var(--spacing-s)*.3);
+  --text-zero: 0px;
+}
+
+@utility hex {
+  clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+}
