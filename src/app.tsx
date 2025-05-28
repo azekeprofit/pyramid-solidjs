@@ -39,7 +39,7 @@ function randomize() {
     const cheat: Record<number, string[]> = {};
     allCombos.forEach(c => {
         const result = calc(letters[c[0]], letters[c[1]], letters[c[2]]);
-        if (Math.floor(result) === result) {
+        if (Math.floor(result) === result && result !== 0) {
             combinations[c] = result;
             if (!answers[result]) answers[result] = 0;
             answers[result]++;
@@ -49,14 +49,16 @@ function randomize() {
         }
     });
 
-    const sortedAnswers = Object.entries(answers).sort(([, a], [, b]) => a > b ? -1 : 1).slice(3, 10);
+    const sortedAnswers = Object.entries(answers).sort(([, a], [, b]) => a > b ? -1 : 1)
+        .slice(3, 10).sort(([a], [b]) => Math.abs(parseInt(a)) > Math.abs(parseInt(b)) ? 1 : -1);
 
-    // console.dir({sortedAnswers,cheat})
+    const target = sortedAnswers[0][0];
 
+    console.dir({ sortedAnswers, cheat, target })
     return {
         rows,
-        sortedAnswers,
-        cheat,
+        target,
+        cheat: cheat[target],
     }
 }
 
@@ -92,18 +94,30 @@ const board = createStoreWithProducer(produce, {
 });
 
 function App() {
-    const rows = useSelector(board, b => b.context.rows);
-    return <div class="block">
-        <For each={rows()}>{
-            (row, i) => <div class="text-zero text-center capitalize">
-                <For each={row}>{(cell, j) =>
-                    <div class='bg-[silver] w-size m-margin h-height inline-block cursor-pointer mb-bottom hex font-bold font-[Georgia]'>
-                        <div class='text-small h-3 bg-bg m-0.5'>{cell.letter}</div>
-                        <div class="text-big">{cell.op}{cell.num}</div>
-                    </div>}</For>
+    const b = useSelector(board, b => b.context);
+    return <div>
+        <div class='flex'>
+            <div class="">
+                <For each={b().rows}>{
+                    (row, i) => <div class="text-zero text-center capitalize">
+                        <For each={row}>{(cell, j) =>
+                            <div class='bg-[silver] w-size m-margin h-height inline-block cursor-pointer mb-bottom hex font-bold font-[Georgia]'>
+                                <div class='text-small h-3 bg-bg m-0.5'>{cell.letter}</div>
+                                <div class="text-big">{cell.op}{cell.num}</div>
+                            </div>}</For>
+                    </div>
+                }</For>
             </div>
-        }</For>
-        <button onClick={() => board.send({ type: 'randomize' })}>new board</button>
+            <div class='bg-bg w-20 text-center h-12 m-2'>
+                <div class='border-b-2 border-b-black'>⋅ TARGET ⋅</div>
+                <div class=''>
+                    {b().target}
+                </div>
+            </div>
+        </div>
+        <p>
+            <button onClick={() => board.send({ type: 'randomize' })}>new board</button>
+        </p>
     </div>;
 }
 render(() => <App />, document.body!);
