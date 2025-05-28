@@ -108,9 +108,9 @@ function App() {
                     </div>
                 }</For>
             </div>
-            <div class='bg-bg w-20 text-center h-12 m-2'>
-                <div class='border-b-2 border-b-black'>⋅ TARGET ⋅</div>
-                <div class=''>
+            <div class='bg-bg text-center size-size m-3'>
+                <div class='border-b-2 border-b-black text-small'>⋅TARGET⋅</div>
+                <div class='text-big font-bold m-1'>
                     {b().target}
                 </div>
             </div>
