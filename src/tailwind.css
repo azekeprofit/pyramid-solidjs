@@ -9,9 +9,10 @@
   --spacing-margin: 4px;
   --spacing-height: calc(var(--spacing-size) * 1.1547);
   --spacing-bottom: calc(var(--spacing-margin) - var(--spacing-size) * 0.2886);
-  --text-small: calc(var(--spacing-size)*.3);
-  --text-big: calc(var(--spacing-size)*.8);
+  --text-small: calc(var(--spacing-size)*.2);
+  --text-big: calc(var(--spacing-size)*.4);
   --text-zero: 0;
+  --color-bg: oklch(0.7726 0.0895 90.2);
 }
 
 @utility hex {
