@@ -1,5 +1,5 @@
 import { useSelector } from '@xstate/store/solid';
-import { For, render } from "solid-js/web";
+import { For, render, Show } from "solid-js/web";
 import { board } from './board';
 import { Panel } from './panel';
 
@@ -21,10 +21,17 @@ function App() {
             <Panel title='TARGET' titleClass='bg-bg' cell={b().target} cellClass='m-3 bg-bg' />
         </div>
         <p>
-            <button onClick={() => board.send({ type: 'randomize' })}>new board</button>
+            <Show when={['correct', 'incorrect'].includes(b().state)}>
+                <Panel title='ANSWER' titleClass='bg-title text-white' cell={b().answer} cellClass='bg-cell' />
+            </Show>
         </p>
+        <div tabIndex={0} autofocus onkeypress={e => board.send({ type: 'enter', key: e.key })}></div>
+        <p>{b().combo}</p>
+        <p>{b().state}</p>
+        <p>{b().found.join(' ')}</p>
+        <p>{b().cheat.join(' ')}</p>
         <p>
-            <Panel title='ANSWER' titleClass='bg-title text-white' cell={''} cellClass='bg-cell' />
+            <button onClick={() => board.send({ type: 'randomize' })}>new board</button>
         </p>
     </div>;
 }
