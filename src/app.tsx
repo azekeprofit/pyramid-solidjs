@@ -54,8 +54,6 @@ function App() {
         <p>
             <button class='font-[Georgia]' onClick={() => { board.send({ type: 'randomize' }); input.focus() }}>RESET</button>
         </p>
-
-        <p>{b().cheat.join(' ')}</p>
     </div>;
 }
 render(() => <App />, document.body!);
