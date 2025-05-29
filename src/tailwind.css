@@ -13,6 +13,8 @@
   --text-big: calc(var(--spacing-size)*.4);
   --text-zero: 0;
   --color-bg: oklch(0.7726 0.0895 90.2);
+  --color-title: oklch(0.2752 0.1302 264);
+  --color-cell: oklch(0.7711 0.065 267.11);
 }
 
 @utility hex {
