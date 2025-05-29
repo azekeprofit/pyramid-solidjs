@@ -4,22 +4,26 @@ import { board, type state } from './board';
 import { Panel } from './panel';
 import { Cell } from './cell';
 
+
+function borderColor(state: state) {
+    return { correct: 'border-cell', incorrect: 'border-red-600' }[state] ?? 'border-bg'
+}
+
+
+function bgColor(state: state) {
+    return { correct: 'bg-cell', incorrect: 'bg-red-600' }[state] ?? 'bg-bg'
+}
+
+
+
 function App() {
     const b = useSelector(board, b => b.context);
-
-    function borderColor(state: state) {
-        return { correct: 'border-cell', incorrect: 'border-red-600' }[state] ?? 'border-bg'
-    }
-
-
-    function bgColor(state: state) {
-        return { correct: 'bg-cell', incorrect: 'bg-red-600' }[state] ?? 'bg-bg'
-    }
 
     let input: HTMLDivElement = null!;
 
     return <>
         <p>Game "Pyramid" as played in Korean game show <a href="https://www.netflix.com/title/81653386">Devil's Plan</a>.</p>
+        <p>Press letters or click on cells to start entering combinations. If equation made of 3 cells equals to target -- you win.</p>
         <div style='background-image:url("./steel.jpg")' class='w-150 font-[Georgia]'>
             <div class='flex'>
                 <div class='w-40 text-bg font-bold m-10'>
@@ -30,7 +34,7 @@ function App() {
                 <div class="">
                     <For each={b().rows}>{
                         (row, i) => <div class="text-zero text-center">
-                            <For each={row}>{(cell, j) => <Cell tagClass='bg-bg' cell={cell} />}</For>
+                            <For each={row}>{(cell, j) => <Cell tagClass='bg-bg' cell={cell} onClick={() => { board.send({ type: 'enter', key: cell.letter }); input.focus() }} />}</For>
                         </div>
                     }</For>
                 </div>
