@@ -18,42 +18,44 @@ function App() {
 
     let input: HTMLDivElement = null!;
 
-    return <div style='background-image:url("./steel.jpg")' class='w-150 font-[Georgia]'>
-        <div class='flex'>
-            <div class='w-40 text-bg font-bold m-10'>
-                <For each={b().found}>
-                    {(row) => <div>{row.toUpperCase()}</div>}
-                </For>
-            </div>
-            <div class="">
-                <For each={b().rows}>{
-                    (row, i) => <div class="text-zero text-center">
-                        <For each={row}>{(cell, j) => <Cell tagClass='bg-bg' cell={cell} />}</For>
-                    </div>
-                }</For>
-            </div>
-            <Panel title='TARGET' titleClass='bg-bg' cell={b().target} cellClass='m-3 bg-bg' />
-        </div>
-        <div class='h-sizeborder flex m-5'>
-            <Show when={['enter2nd', 'enter3rd', 'correct', 'incorrect', 'found'].includes(b().state)}>
-                <div class={`w-50 ml-40 mr-2 border-4 ${borderColor(b().state)}`}>
-                    <For each={b().combo.split('')}>
-                        {(char) => <Cell tagClass={bgColor(b().state)} cell={b().letters[char]} />}
+    return <>
+        <p>Game "Pyramid" as played in Korean game show <a href="https://www.netflix.com/title/81653386">Devil's Plan</a>.</p>
+        <div style='background-image:url("./steel.jpg")' class='w-150 font-[Georgia]'>
+            <div class='flex'>
+                <div class='w-40 text-bg font-bold m-10'>
+                    <For each={b().found}>
+                        {(row) => <div>{row.toUpperCase()}</div>}
                     </For>
                 </div>
-            </Show>
-            <Show when={['enter2nd', 'enter3rd', 'correct', 'incorrect', 'found'].includes(b().state)}>
-                <Panel title='ANSWER' titleClass={b().state == 'correct' ? `bg-title text-white` : `${bgColor(b().state)} text-black`} cell={b().answer} cellClass={b().state == 'correct' ? `bg-cell` : `bg-white`} />
-            </Show>
-            <Show when={b().state == 'exhausted'}>
-                <div class='w-100 m-2 text-center text-red-500 font-bold'>EXHAUSTED</div>
-            </Show>
-        </div>
-        <div ref={input} tabIndex={0} autofocus onkeypress={e => board.send({ type: 'enter', key: e.key })}></div>
+                <div class="">
+                    <For each={b().rows}>{
+                        (row, i) => <div class="text-zero text-center">
+                            <For each={row}>{(cell, j) => <Cell tagClass='bg-bg' cell={cell} />}</For>
+                        </div>
+                    }</For>
+                </div>
+                <Panel title='TARGET' titleClass='bg-bg' cell={b().target} cellClass='m-3 bg-bg' />
+            </div>
+            <div class='h-sizeborder flex m-5'>
+                <Show when={['enter2nd', 'enter3rd', 'correct', 'incorrect', 'found'].includes(b().state)}>
+                    <div class={`w-50 ml-40 mr-2 border-4 ${borderColor(b().state)}`}>
+                        <For each={b().combo.split('')}>
+                            {(char) => <Cell tagClass={bgColor(b().state)} cell={b().letters[char]} />}
+                        </For>
+                    </div>
+                </Show>
+                <Show when={['enter2nd', 'enter3rd', 'correct', 'incorrect', 'found'].includes(b().state)}>
+                    <Panel title='ANSWER' titleClass={b().state == 'correct' ? `bg-title text-white` : `${bgColor(b().state)} text-black`} cell={b().answer} cellClass={b().state == 'correct' ? `bg-cell` : `bg-white`} />
+                </Show>
+                <Show when={b().state == 'exhausted'}>
+                    <div class='w-100 m-2 text-center text-red-500 font-bold'>EXHAUSTED</div>
+                </Show>
+            </div>
+            <div ref={input} tabIndex={0} autofocus onkeypress={e => board.send({ type: 'enter', key: e.key })}></div>
 
-        <p>
-            <button class='font-[Georgia]' onClick={() => { board.send({ type: 'randomize' }); input.focus() }}>RESET</button>
-        </p>
-    </div>;
+            <p>
+                <button class='font-[Georgia]' onClick={() => { board.send({ type: 'randomize' }); input.focus() }}>RESET</button>
+            </p>
+        </div></>;
 }
 render(() => <App />, document.body!);
