@@ -6,6 +6,7 @@
 
 @theme {
   --spacing-size: 50px;
+  --spacing-sizeborder: 70px;
   --spacing-margin: 4px;
   --spacing-height: calc(var(--spacing-size) * 1.1547);
   --spacing-bottom: calc(var(--spacing-margin) - var(--spacing-size) * 0.2886);

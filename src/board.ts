@@ -8,7 +8,7 @@ ghij`;
 
 const ops = ["+", "-", "*", "÷"] as const;
 type op = (typeof ops)[number];
-interface cell {
+export interface cell {
   letter: string;
   op: op;
   num: number;
@@ -31,7 +31,7 @@ for (let i = 0; i < 1000; i++) {
   allCombos.push(combination);
 }
 
-type state =
+export type state =
   | "enter1st"
   | "enter2nd"
   | "enter3rd"
@@ -106,8 +106,7 @@ function calc3(op1: op, op2: op, a: number, b: number, c: number) {
 }
 
 function calc(a: cell, b: cell, c: cell) {
-  const firstNum = a.op == "-" ? -a.num : a.num;
-  return calc3(b.op, c.op, firstNum, b.num, c.num);
+  return calc3(b.op, c.op, a.num, b.num, c.num);
 }
 
 export const board = createStoreWithProducer(produce, {
@@ -124,6 +123,7 @@ export const board = createStoreWithProducer(produce, {
     },
     enter: (context, event: { key: string }, enqueue) => {
       if (!Object.keys(context.letters).includes(event.key)) return;
+      if (context.combo.includes(event.key)) return;
       switch (context.state) {
         case "enter1st":
           context.combo += event.key;
@@ -139,7 +139,7 @@ export const board = createStoreWithProducer(produce, {
             context.letters[context.combo[0]],
             context.letters[context.combo[1]],
             context.letters[context.combo[2]]
-          ).toString();
+          ).toFixed(1);
           if (context.cheat.includes(context.combo)) {
             if (context.found.includes(context.combo)) context.state = "found";
             else {
