@@ -135,11 +135,15 @@ export const board = createStoreWithProducer(produce, {
           break;
         case "enter3rd":
           context.combo += event.key;
-          context.answer = calc(
+          const answer = calc(
             context.letters[context.combo[0]],
             context.letters[context.combo[1]],
             context.letters[context.combo[2]]
-          ).toFixed(1);
+          );
+          context.answer =
+            Math.floor(answer) === answer
+              ? answer.toString()
+              : answer.toFixed(1);
           if (context.cheat.includes(context.combo)) {
             if (context.found.includes(context.combo)) context.state = "found";
             else {
